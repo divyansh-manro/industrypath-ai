@@ -4,8 +4,12 @@ const btn = document.getElementById("submitBtn");
 const ideaInput = document.getElementById("idea");
 const resultDiv = document.getElementById("result");
 
-// Backend URL (local)
-const BASE_URL = "http://localhost:8000";
+const BACKEND_PROD_URL = "https://industrypath-backend.onrender.com";
+
+const BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:8000"           // local dev
+    : BACKEND_PROD_URL;                 // production
 
 btn.addEventListener("click", async () => {
   const idea = ideaInput.value.trim();
