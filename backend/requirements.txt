@@ -1,0 +1,6 @@
+crewai[google-genai]
+crewai-tools
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic-settings

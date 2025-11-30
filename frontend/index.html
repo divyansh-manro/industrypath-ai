@@ -1,0 +1,475 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IndustryPath AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --border-subtle: #e2e2e6;
+      --text-main: #111111;
+      --text-muted: #666876;
+      --accent: #111111;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 40px;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .brand-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .nav-pill {
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 6px 14px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.4fr);
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+      }
+    }
+
+    .hero-title {
+      font-size: 40px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin: 0 0 14px;
+    }
+
+    .hero-sub {
+      margin: 0 0 18px;
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 480px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #00c853;
+    }
+
+    .hero-side-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .hero-side-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-side-tagline {
+      font-size: 14px;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .chip {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .small-caption {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.7fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 900px) {
+      .layout-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .card-title {
+      margin: 0 0 4px;
+      font-size: 16px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .card-heading {
+      margin: 2px 0 14px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      background: #fafafa;
+    }
+
+    textarea:focus {
+      border-color: #111111;
+      background: #ffffff;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      border: none;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: var(--accent);
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+    }
+
+    .button-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ffffff;
+      opacity: 0.8;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .result-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .result-section {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+
+    .result-section:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .result-section h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .result-section p {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      color: var(--text-muted);
+    }
+
+    .roadmap-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 4px;
+    }
+
+    .roadmap-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .roadmap-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: 1px solid var(--text-main);
+      margin-top: 6px;
+    }
+
+    .roadmap-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .roadmap-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .mini-card {
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      padding: 8px 9px;
+      font-size: 12px;
+      background: #fafafa;
+    }
+
+    .mini-card a {
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .mini-card a:hover {
+      text-decoration: underline;
+    }
+
+    .mini-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .mini-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .empty-state {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .mono-block {
+      background: #111111;
+      color: #f5f5f5;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      max-height: 260px;
+      overflow: auto;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="top-nav">
+      <div class="brand">
+        <span class="brand-mark">IP</span>
+        <span>IndustryPath AI</span>
+      </div>
+      <div class="nav-pill">Agentic Research Prototype</div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span>Idea → Roadmap → Industry</span>
+        </div>
+        <h1 class="hero-title">Turn vague industrial ideas into concrete learning paths.</h1>
+        <p class="hero-sub">
+          Describe what you’d like to build or understand. The agentic workflow will research,
+          scope a project, design a roadmap, and surface real-world companies and communities.
+        </p>
+      </div>
+
+      <aside class="hero-side-card">
+        <div class="hero-side-title">Example Queries</div>
+        <p class="hero-side-tagline">
+          You can ask about refrigerators, drones, smart meters, CNC machines, EV chargers, and more.
+        </p>
+        <div class="hero-chips">
+          <div class="chip">Mini thermoelectric fridge</div>
+          <div class="chip">Low-cost CNC router</div>
+          <div class="chip">IoT smart energy meter</div>
+          <div class="chip">Solar-powered street light</div>
+        </div>
+        <p class="small-caption">
+          Behind the scenes, multiple agents clarify your idea, scout the web, build a roadmap,
+          and connect you to live resources.
+        </p>
+      </aside>
+    </section>
+
+    <section class="layout-grid">
+      <div class="card">
+        <h2 class="card-title">Input</h2>
+        <h3 class="card-heading">Describe your project idea</h3>
+
+        <label for="idea">What do you want to build or learn?</label>
+        <textarea
+          id="idea"
+          placeholder="e.g. I want to design a small efficient refrigerator for my hostel room."
+        ></textarea>
+
+        <button id="submitBtn">
+          <span class="button-dot"></span>
+          Generate roadmap
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="result-header">
+          <p class="result-title">Output</p>
+          <span class="result-tag">Agentic workflow result</span>
+        </div>
+        <div id="result" class="empty-state">
+          Run a query to see the roadmap, companies, and resources here.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
