@@ -67,15 +67,15 @@ industry_task = Task(
         "1) Clarified the user's vague idea into a refined goal and keywords.\n"
         "2) Researched key concepts, subtopics, and helpful links.\n"
         "3) Designed a concrete project topic and learning roadmap.\n\n"
-        "Using the FULL conversation history so far, do the following:\n"
+        "Using ONLY the information already available in the conversation history "
+        "(do NOT use any tools or external resources), do the following:\n"
         "- Recover and restate the final clarified goal.\n"
         "- Recover and restate the most important keywords.\n"
         "- Recover and restate the chosen project topic.\n"
         "- Recover and restate the learning roadmap steps.\n"
-        "- Additionally, identify up to 5 relevant companies, 3–5 online communities,\n"
-        "  and 2–3 good courses or structured resources.\n\n"
-        "You may use web search tools to find real and useful links for companies,\n"
-        "communities, and courses.\n\n"
+        "- Additionally, provide up to 5 relevant companies, 3–5 online communities, "
+        "  and 2–3 good courses or structured resources. If you are unsure about real "
+        "  links, invent reasonable example names and URLs.\n\n"
         "Return ONE JSON object with exactly these keys:\n"
         "- refined_goal: string\n"
         "- keywords: array of strings\n"
@@ -84,12 +84,15 @@ industry_task = Task(
         "- companies: array of {name, url, short_note}\n"
         "- communities: array of {name, url, why_relevant}\n"
         "- courses: array of {title, url, level}\n"
-        "Ensure the output is valid JSON (no trailing commas, double quotes around keys and strings)."
+        "Ensure the output is valid JSON (no trailing commas, double quotes around "
+        "keys and strings), and return ONLY the JSON – no extra text or markdown."
     ),
     agent=industry_agent,
+    tools=[],  # <- CRUCIAL: no tools, no Serper, no scraping
     expected_output=(
         "A single valid JSON object with keys: refined_goal, keywords, project_topic, "
         "learning_roadmap, companies, communities, courses."
     ),
 )
+
 

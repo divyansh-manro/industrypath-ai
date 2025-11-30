@@ -49,14 +49,17 @@ roadmap_agent = Agent(
 industry_agent = Agent(
     role="Industry Bridge",
     goal=(
-        "Given the topic and roadmap, identify companies, communities, and "
-        "courses that connect the user to real-world exposure."
+        "Take the outputs from the previous agents and format them into ONE final "
+        "JSON object with the required keys. Do NOT call any tools or browse the web."
     ),
     backstory=(
-        "You are well-connected with industry and know where people can learn, "
-        "find communities, and follow relevant companies online."
+        "You are a simple summarizer and formatter. You only read the existing "
+        "conversation/context and produce clean, valid JSON – no explanations, "
+        "no markdown, no extra text."
     ),
-    tools=[web_search_tool],
     llm=gemini_llm,
     verbose=True,
+    allow_delegation=False,  # <- don't hand work to anyone else
+    max_iter=1,              # <- exactly one LLM call
 )
+
